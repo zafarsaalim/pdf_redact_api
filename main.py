@@ -17,10 +17,11 @@ async def redact_pdf(file: UploadFile = File(...)):
 
     doc = fitz.open(input_path)
     for page in doc:
-        for annot in page.annots(types=[8]):  # highlight annotations
+        for annot in page.annots(types=[8]):  # highlight annotations only
             rect = annot.rect
-            page.add_redact_annot(rect, fill=(0,0,0))
+            page.add_redact_annot(rect, fill=(0, 0, 0))
         page.apply_redactions()
+
     output_path = input_path.replace(".pdf", "_redacted.pdf")
     doc.save(output_path)
     doc.close()
