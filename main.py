@@ -9,6 +9,9 @@ app = FastAPI(title="PDF Redact API")
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+@app.get("/")
+def home():
+    return {"message": "Hello World!"}
 @app.post("/redact")
 async def redact_pdf(file: UploadFile = File(...)):
     input_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
