@@ -26,3 +26,7 @@ async def redact_pdf(file: UploadFile = File(...)):
     doc.save(output_path)
     doc.close()
     return FileResponse(output_path, filename="redacted.pdf", media_type="application/pdf")
+import uvicorn
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8080)
