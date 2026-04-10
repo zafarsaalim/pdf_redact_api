@@ -1,11 +1,20 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware  # ✅ ADD THIS
+
 import fitz
 import uuid
 import os
 
 app = FastAPI(title="PDF Redact API")
-
+# ✅ ADD THIS BLOCK (right after app creation)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # for testing, allows all
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
